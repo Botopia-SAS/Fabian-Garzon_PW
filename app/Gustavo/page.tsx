@@ -5,135 +5,135 @@ import Books from "@/components/books"; // Asegúrate de que la ruta al componen
 
 const images = [
   {
-    url: "/gustavo/grid01.jpg",
+    url: "/gustavo/gus.1.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/gustavo/grid02.jpg",
+    url: "/gustavo/gus.2.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/gustavo/grid03.jpg",
+    url: "/gustavo/gus.3.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/gustavo/grid04.jpg",
+    url: "/gustavo/gus.4.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/gustavo/grid05.jpg",
+    url: "/gustavo/gus.5.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/gustavo/grid06.jpg",
+    url: "/gustavo/gus.6.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/gustavo/grid07.jpg",
+    url: "/gustavo/gus.7.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/gustavo/grid08.jpg",
+    url: "/gustavo/gus.8.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/gustavo/grid09.jpg",
+    url: "/gustavo/gus.9.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/gustavo/grid010.jpg",
+    url: "/gustavo/gus.10.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/gustavo/grid011.jpg",
+    url: "/gustavo/gus.11.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/gustavo/grid012.jpg",
+    url: "/gustavo/gus.12.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/gustavo/grid013.jpg",
+    url: "/gustavo/gus.13.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/gustavo/grid014.jpg",
+    url: "/gustavo/gus.14.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/gustavo/grid015.jpg",
+    url: "/gustavo/gus.15.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/gustavo/grid016.jpg",
+    url: "/gustavo/gus.16.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/gustavo/grid017.jpg",
+    url: "/gustavo/gus.17.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/gustavo/grid018.jpg",
+    url: "/gustavo/gus.18.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/gustavo/grid019.jpg",
+    url: "/gustavo/gus.19.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/gustavo/grid020.jpg",
+    url: "/gustavo/gus.20.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/gustavo/grid021.jpg",
+    url: "/gustavo/gus.21.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/gustavo/grid022.jpg",
+    url: "/gustavo/gus.22.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/gustavo/grid023.jpg",
+    url: "/gustavo/gus.23.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/gustavo/grid024.jpg",
+    url: "/gustavo/gus.24.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/gustavo/grid025.jpg",
+    url: "/gustavo/gus.25.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/gustavo/grid026.jpg",
+    url: "/gustavo/gus.26.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/gustavo/grid027.jpg",
+    url: "/gustavo/gus.27.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/gustavo/grid028.jpg",
+    url: "/gustavo/gus.28.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/gustavo/grid029.jpg",
+    url: "/gustavo/gus.29.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/gustavo/grid030.jpg",
+    url: "/gustavo/gus.30.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/gustavo/grid031.jpg",
+    url: "/gustavo/gus.31.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/gustavo/grid032.jpg",
+    url: "/gustavo/gus.32.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/gustavo/grid033.jpg",
+    url: "/gustavo/gus.33.jpg",
     alt: "Descripción de la imagen 1",
   },
 

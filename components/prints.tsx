@@ -10,7 +10,7 @@ const Prints = () => {
         <p className="text-base leading-relaxed">
           Transform Your Space with Exclusive Fine Art Prints
         </p>
-        <p className="text-base leading-relaxed">
+        <p className="text-base leading-relaxed text-justify">
           <br></br>
           <br></br>
           Immerse yourself in the artistry of Fabian Garzon. Explore a curated

@@ -5,17 +5,21 @@ import Image from "next/image";
 import Link from "next/link"; // Importamos el componente Link
 
 const photos = [
-  { url: "/images-hero/photo1.jpg", alt: "FOTO 1", link: "/Book1" },
-  { url: "/images-hero/photo2.jpg", alt: "FOTO 2", link: "/Book2" },
-  { url: "/images-hero/photo3.jpg", alt: "FOTO 3", link: "/Portrait" },
-  { url: "/images-hero/photo4.jpg", alt: "FOTO 4", link: "/Advertising" },
-  { url: "/images-hero/photo5.jpg", alt: "FOTO 5", link: "/Celebrity" },
-  { url: "/images-hero/photo6.jpg", alt: "FOTO 6", link: "/Colombia" },
-  { url: "/images-hero/photo7.jpg", alt: "FOTO 7", link: "/Mujeres" },
-  { url: "/images-hero/photo8.jpg", alt: "FOTO 8", link: "/Fast" },
-  { url: "/images-hero/photo9.jpg", alt: "FOTO 9", link: "/Veld" },
-  { url: "/images-hero/photo10.jpg", alt: "FOTO 10", link: "/Gustavo" },
-  { url: "/images-hero/photo11.jpg", alt: "FOTO 11", link: "/Barichara" },
+  { url: "/book1/book1.1.jpg", alt: "FOTO 1", link: "/Book1" },
+  { url: "/book2/book2.1.jpeg", alt: "FOTO 2", link: "/Book2" },
+  { url: "/portrait/portrait.1.jpg", alt: "FOTO 3", link: "/Portrait" },
+  {
+    url: "/advertizing/advertizing.1.jpg",
+    alt: "FOTO 4",
+    link: "/Advertising",
+  },
+  { url: "/celebrity/celebrity.1.jpg", alt: "FOTO 5", link: "/Celebrity" },
+  { url: "/colombia/colombia.1.jpg", alt: "FOTO 6", link: "/Colombia" },
+  { url: "/mujeres/mujeres.1.jpg", alt: "FOTO 7", link: "/Mujeres" },
+  { url: "/fast/fast.1.jpg", alt: "FOTO 8", link: "/Fast" },
+  { url: "/veld/veld.1.jpg", alt: "FOTO 9", link: "/Veld" },
+  { url: "/gustavo/gus.1.jpg", alt: "FOTO 10", link: "/Gustavo" },
+  { url: "/barichara/a.jpg", alt: "FOTO 11", link: "/Barichara" },
 ];
 
 const Hero = () => {

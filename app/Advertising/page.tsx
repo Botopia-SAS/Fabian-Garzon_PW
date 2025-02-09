@@ -5,42 +5,69 @@ import Books from "@/components/books"; // Asegúrate de que la ruta al componen
 
 const images = [
   {
-    url: "/advertising/grid1.jpg",
+    url: "/advertizing/advertizing.1.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/advertising/grid2.jpg",
+    url: "/advertizing/advertizing.2.jpg",
     alt: "Descripción de la imagen 2",
   },
   {
-    url: "/advertising/grid3.jpg",
+    url: "/advertizing/advertizing.3.jpg",
     alt: "Descripción de la imagen 3",
   },
   {
-    url: "/advertising/grid4.jpg",
+    url: "/advertizing/advertizing.4.jpg",
     alt: "Descripción de la imagen 3",
   },
   {
-    url: "/advertising/grid5.jpg",
+    url: "/advertizing/advertizing.5.jpg",
     alt: "Descripción de la imagen 3",
   },
   {
-    url: "/advertising/grid6.jpg",
+    url: "/advertizing/advertizing.6.jpg",
     alt: "Descripción de la imagen 3",
   },
   {
-    url: "/advertising/grid7.jpg",
+    url: "/advertizing/advertizing.7.jpg",
     alt: "Descripción de la imagen 3",
   },
   {
-    url: "/advertising/grid8.jpg",
+    url: "/advertizing/advertizing.8.jpg",
     alt: "Descripción de la imagen 3",
   },
   {
-    url: "/advertising/grid9.jpg",
+    url: "/advertizing/advertizing.9.jpg",
     alt: "Descripción de la imagen 3",
   },
-
+  {
+    url: "/advertizing/advertizing.10.jpg",
+    alt: "Descripción de la imagen 3",
+  },
+  {
+    url: "/advertizing/advertizing.11.jpg",
+    alt: "Descripción de la imagen 3",
+  },
+  {
+    url: "/advertizing/advertizing.12.jpg",
+    alt: "Descripción de la imagen 3",
+  },
+  {
+    url: "/advertizing/advertizing.13.jpg",
+    alt: "Descripción de la imagen 3",
+  },
+  {
+    url: "/advertizing/advertizing.14.jpg",
+    alt: "Descripción de la imagen 3",
+  },
+  {
+    url: "/advertizing/advertizing.15.jpg",
+    alt: "Descripción de la imagen 3",
+  },
+  {
+    url: "/advertizing/advertizing.16.jpg",
+    alt: "Descripción de la imagen 3",
+  },
   // Agrega más imágenes según sea necesario
 ];
 

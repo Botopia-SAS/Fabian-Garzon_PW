@@ -1,7 +1,11 @@
-import type { Metadata } from "next";
+"use client"; // Hace que el layout sea un Client Component
+
 import { Geist, Geist_Mono } from "next/font/google";
+import dynamic from "next/dynamic";
 import "./globals.css";
-import Header from "@/components/header";
+
+// Importa el Header deshabilitando SSR para evitar errores de hidratación
+const Header = dynamic(() => import("@/components/header"), { ssr: false });
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -12,11 +16,6 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
-export const metadata: Metadata = {
-  title: "Fabián Garzón",
-  description: "Portafolio creativo",
-};
 
 export default function RootLayout({
   children,

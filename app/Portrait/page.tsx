@@ -5,39 +5,63 @@ import Books from "@/components/books"; // Asegúrate de que la ruta al componen
 
 const images = [
   {
-    url: "/portrait/grid10.jpg",
+    url: "/portrait/portrait.1.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/portrait/grid11.jpg",
+    url: "/portrait/portrait.2.jpg",
     alt: "Descripción de la imagen 2",
   },
   {
-    url: "/portrait/grid13.jpg",
+    url: "/portrait/portrait.3.jpg",
     alt: "Descripción de la imagen 3",
   },
   {
-    url: "/portrait/grid14.jpg",
+    url: "/portrait/portrait.4.jpg",
     alt: "Descripción de la imagen 3",
   },
   {
-    url: "/portrait/grid15.jpg",
+    url: "/portrait/portrait.5.jpg",
     alt: "Descripción de la imagen 3",
   },
   {
-    url: "/portrait/grid16.jpg",
+    url: "/portrait/portrait.6.jpg",
     alt: "Descripción de la imagen 3",
   },
   {
-    url: "/portrait/grid17.jpg",
+    url: "/portrait/portrait.7.jpg",
     alt: "Descripción de la imagen 3",
   },
   {
-    url: "/portrait/grid18.jpg",
+    url: "/portrait/portrait.8.jpg",
     alt: "Descripción de la imagen 3",
   },
   {
-    url: "/portrait/grid19.jpg",
+    url: "/portrait/portrait.9.jpg",
+    alt: "Descripción de la imagen 3",
+  },
+  {
+    url: "/portrait/portrait.10.jpg",
+    alt: "Descripción de la imagen 3",
+  },
+  {
+    url: "/portrait/portrait.11.jpg",
+    alt: "Descripción de la imagen 3",
+  },
+  {
+    url: "/portrait/portrait.12.jpg",
+    alt: "Descripción de la imagen 3",
+  },
+  {
+    url: "/portrait/portrait.13.jpg",
+    alt: "Descripción de la imagen 3",
+  },
+  {
+    url: "/portrait/portrait.14.jpg",
+    alt: "Descripción de la imagen 3",
+  },
+  {
+    url: "/portrait/portrait.15.jpg",
     alt: "Descripción de la imagen 3",
   },
 

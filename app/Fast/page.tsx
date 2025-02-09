@@ -5,39 +5,67 @@ import Books from "@/components/books"; // Asegúrate de que la ruta al componen
 
 const images = [
   {
-    url: "/fast/grid110.jpg",
+    url: "/fast/fast.1.jpg",
     alt: "Descripción de la imagen 1",
   },
   {
-    url: "/fast/grid111.jpg",
+    url: "/fast/fast.2.jpg",
     alt: "Descripción de la imagen 2",
   },
   {
-    url: "/fast/grid112.jpg",
+    url: "/fast/fast.3.jpg",
     alt: "Descripción de la imagen 3",
   },
   {
-    url: "/fast/grid113.jpg",
+    url: "/fast/fast.4.jpg",
     alt: "Descripción de la imagen 3",
   },
   {
-    url: "/fast/grid114.jpg",
+    url: "/fast/fast.5.jpg",
     alt: "Descripción de la imagen 3",
   },
   {
-    url: "/fast/grid115.jpg",
+    url: "/fast/fast.6.jpg",
     alt: "Descripción de la imagen 3",
   },
   {
-    url: "/fast/grid116.jpg",
+    url: "/fast/fast.7.jpg",
     alt: "Descripción de la imagen 3",
   },
   {
-    url: "/fast/grid117.jpg",
+    url: "/fast/fast.8.jpg",
     alt: "Descripción de la imagen 3",
   },
   {
-    url: "/fast/grid118.jpg",
+    url: "/fast/fast.9.jpg",
+    alt: "Descripción de la imagen 3",
+  },
+  {
+    url: "/fast/fast.10.jpg",
+    alt: "Descripción de la imagen 3",
+  },
+  {
+    url: "/fast/fast.11.jpg",
+    alt: "Descripción de la imagen 3",
+  },
+  {
+    url: "/fast/fast.12.jpg",
+    alt: "Descripción de la imagen 3",
+  },
+  {
+    url: "/fast/fast.13.jpg",
+    alt: "Descripción de la imagen 3",
+  },
+  {
+    url: "/fast/fast.14.jpg",
+    alt: "Descripción de la imagen 3",
+  },
+  {
+    url: "/fast/fast.15.jpg",
+    alt: "Descripción de la imagen 3",
+  },
+  {
+    url: "/fast/fast.16.jpg",
     alt: "Descripción de la imagen 3",
   },
 
