@@ -1,13 +1,13 @@
 const About = () => {
   return (
-    <section className=" py-16 px-6 sm:px-16 lg:px-32 ">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <section className="py-16 px-10 sm:px-8 md:px-12 lg:px-24">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
         {/* Columna de texto */}
         <div>
-          <h2 className=" font-bold text-black mt-20 mb-4 ml-20 mr-40">
+          <h2 className="font-bold text-black mt-10 mb-4">
             Fabián Garzón - Agencia de marketing digital y comunicaciones.
           </h2>
-          <p className="text-black mb-4 leading-relaxed ml-20 mr-20 text-justify">
+          <p className="text-black mb-4 leading-relaxed text-justify">
             Con más de 20 años de experiencia en fotografía, dirección y
             estrategia de marketing, Fabián Garzón lidera una agencia
             internacional que transforma marcas a través de contenido creativo y
@@ -17,10 +17,10 @@ const About = () => {
             proyectos al siguiente nivel con resultados medibles y un enfoque en
             innovación.
           </p>
-          <h2 className=" font-bold text-black mb-4 ml-20 mr-40 mt-10">
+          <h2 className="font-bold text-black mb-4 mt-8">
             Fabián Garzón - SMMA.
           </h2>
-          <p className="text-black leading-relaxed mb-4 ml-20 mr-20 text-justify">
+          <p className="text-black leading-relaxed mb-4 text-justify">
             With over 20 years of experience in photography, directing, and
             marketing strategy, Fabián Garzón leads an international agency that
             transforms brands through creative content and digital campaigns.

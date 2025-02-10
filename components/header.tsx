@@ -10,12 +10,12 @@ const Header = () => {
   return (
     <header className="fixed top-0 left-0 w-full bg-white/90 backdrop-blur-md z-50 shadow">
       <nav className="container mx-auto flex justify-between items-center py-4 px-6">
-        {/* Nombre del portafolio a la izquierda */}
+        {/* Nombre del portafolio */}
         <div className="text-2xl font-bold">
           <a href="/">FABIAN GARZON</a>
         </div>
 
-        {/* Menú en el centro, oculto en móviles */}
+        {/* Menú en el centro (visible solo en desktop) */}
         <ul className="hidden md:flex space-x-6 text-base font-medium">
           <li>
             <a href="/Prints" className="hover:underline">
@@ -67,11 +67,11 @@ const Header = () => {
           </a>
         </div>
 
-        {/* Menú hamburguesa para móviles */}
-        <div className="md:hidden flex items-center">
+        {/* Menú hamburguesa en móviles */}
+        <div className="md:hidden flex items-center ml-6">
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="text-2xl focus:outline-none ml-4"
+            className="text-2xl focus:outline-none"
           >
             {menuOpen ? <HiX /> : <HiMenuAlt3 />}
           </button>
@@ -80,14 +80,8 @@ const Header = () => {
 
       {/* Menú desplegable en móviles */}
       {menuOpen && (
-        <div className="fixed top-0 left-0 w-full h-full bg-white z-50 flex flex-col items-center justify-center shadow-lg">
-          <button
-            onClick={() => setMenuOpen(false)}
-            className="absolute top-4 right-4 text-2xl focus:outline-none"
-          >
-            <HiX />
-          </button>
-          <ul className="flex flex-col space-y-6 text-base font-medium text-black">
+        <div className="md:hidden bg-white shadow-lg absolute top-16 left-0 w-full z-50">
+          <ul className="flex flex-col space-y-2 p-4 text-sm font-medium">
             <li>
               <a href="/Prints" className="hover:underline">
                 PRINTS FOR SALE
