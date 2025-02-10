@@ -4,7 +4,7 @@ import React from "react";
 
 const Contact = () => {
   return (
-    <section className="pt-16 flex justify-center px-10">
+    <section className="pt-20 flex justify-center px-10">
       <form
         action="https://formsubmit.co/your-email@example.com" // Reemplaza con tu correo de FormSubmit
         method="POST"
