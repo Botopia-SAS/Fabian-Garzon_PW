@@ -4,30 +4,34 @@ const About = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center dark:bg-white">
         {/* Columna de texto */}
         <div>
-          <h2 className="font-bold text-black mt-10 mb-4">
-            Fabián Garzón - Agencia de marketing digital y comunicaciones.
+          <h2 className="font-bold text-black mt-10 mb-4 text-center text-4xl">
+            About
           </h2>
           <p className="text-black mb-4 leading-relaxed text-justify">
-            Con más de 20 años de experiencia en fotografía, dirección y
-            estrategia de marketing, Fabián Garzón lidera una agencia
-            internacional que transforma marcas a través de contenido creativo y
-            campañas digitales. Su enfoque combina arte y estrategia,
-            posicionando empresas y personas como líderes en sus mercados. Ha
-            trabajado con clientes en Bogotá, Miami y Canadá, llevando sus
-            proyectos al siguiente nivel con resultados medibles y un enfoque en
-            innovación.
-          </p>
-          <h2 className="font-bold text-black mb-4 mt-8">
-            Fabián Garzón - SMMA.
-          </h2>
-          <p className="text-black leading-relaxed mb-80 text-justify">
-            With over 20 years of experience in photography, directing, and
-            marketing strategy, Fabián Garzón leads an international agency that
-            transforms brands through creative content and digital campaigns.
-            His approach blends art and strategy, positioning businesses and
-            individuals as market leaders. He has worked with clients in Bogotá,
-            Miami, and Canada, elevating projects with measurable results and a
-            focus on innovation.
+            Fabian Garzon’s journey through diverse cultures and worlds has not
+            only shaped his unique photography style but also fueled his
+            entrepreneurial ventures in the digital ecosystem. With a visionary
+            eye, he captures influential people, celebrities, and models, using
+            innovative techniques with colors, space, and light to create images
+            that are fresh, sophisticated, edgy, and original. Fabian’s work
+            often defies convention, offering a surreal artistic lens that
+            reimagines his subjects in unexpected and thought-provoking ways. “I
+            approach every shoot as if it’s my last, giving my all and pushing
+            past limits every time,” he says, reflecting his relentless drive
+            for creative excellence. <br></br>
+            <br></br> Born in Bogotá, Colombia, Fabian discovered photography at
+            12 when his father gifted him a Zenith camera, sparking a lifelong
+            passion. At 18, he moved to Miami, collaborating with talent and
+            modeling agencies, before heading to Toronto, Canada’s fashion hub,
+            where he earned a degree in digital photography. <br></br> <br></br>
+            Today, Fabian is pushing the boundaries of creativity by venturing
+            beyond photography. Immersed in post-production for his debut as a
+            film director, he’s bringing his artistic vision to the world of
+            cinema. Simultaneously, he’s thriving as an entrepreneur, having
+            founded a successful social media and Web 3 marketing agency. His
+            expertise in visual storytelling and emerging digital ecosystems
+            empowers brands to connect with audiences through innovative,
+            immersive strategies in the ever-evolving digital landscape.
           </p>
         </div>
 
