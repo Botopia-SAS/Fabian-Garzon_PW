@@ -8,7 +8,7 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 w-full bg-white/90 backdrop-blur-md z-50 shadow">
+    <header className="fixed top-0 left-0 w-full bg-white text-black dark:bg-white dark:text-black backdrop-blur-md z-50 shadow">
       <nav className="container mx-auto flex justify-between items-center py-4 px-6">
         {/* Nombre del portafolio */}
         <div className="text-2xl font-bold">

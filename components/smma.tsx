@@ -16,7 +16,7 @@ const SMMA: React.FC<SMMAProps> = ({
   additionalContent,
 }) => {
   return (
-    <section className="pt-20 flex justify-center px-10">
+    <section className="pt-20 flex justify-center px-10 dark:bg-white dark:text-black">
       <div className="max-w-2xl text-center">
         {/* Título principal */}
         <h1 className="text-2xl font-bold mb-4">{title}</h1>

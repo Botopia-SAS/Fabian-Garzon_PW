@@ -9,7 +9,7 @@ interface BooksProps {
 
 const Books: React.FC<BooksProps> = ({ images }) => {
   return (
-    <section className="flex flex-col items-center gap-8 pt-16">
+    <section className="flex flex-col items-center gap-8 pt-16 dark:bg-white">
       {images.map((image, index) => (
         <div key={index} className="w-full max-w-4xl">
           <Image

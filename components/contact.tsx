@@ -4,9 +4,9 @@ import React from "react";
 
 const Contact = () => {
   return (
-    <section className="pt-20 flex justify-center px-10">
+    <section className="pt-20 flex justify-center px-10 dark:bg-white dark:text-black bg-white">
       <form
-        action="https://formsubmit.co/your-email@example.com" // Reemplaza con tu correo de FormSubmit
+        action="https://formsubmit.co/est.juan.gama@unimilitar.edu.co" // Reemplaza con tu correo de FormSubmit
         method="POST"
         className="max-w-2xl w-full space-y-6"
       >
@@ -19,7 +19,7 @@ const Contact = () => {
               htmlFor="first-name"
               className="block text-sm font-medium text-gray-700"
             >
-              First Name <span className="text-red-500">(required)</span>
+              First Name
             </label>
             <input
               type="text"
@@ -51,7 +51,7 @@ const Contact = () => {
             htmlFor="email"
             className="block text-sm font-medium text-gray-700"
           >
-            Email <span className="text-red-500">(required)</span>
+            Email
           </label>
           <input
             type="email"
@@ -68,7 +68,7 @@ const Contact = () => {
             htmlFor="subject"
             className="block text-sm font-medium text-gray-700"
           >
-            Subject <span className="text-red-500">(required)</span>
+            Subject
           </label>
           <input
             type="text"
@@ -85,7 +85,7 @@ const Contact = () => {
             htmlFor="message"
             className="block text-sm font-medium text-gray-700"
           >
-            Message <span className="text-red-500">(required)</span>
+            Message
           </label>
           <textarea
             id="message"
@@ -100,7 +100,7 @@ const Contact = () => {
         <div className="flex justify-center">
           <button
             type="submit"
-            className="px-6 py-2 bg-black text-white rounded-md shadow-md hover:bg-gray-800 transition duration-300"
+            className="px-6 py-2 bg-black text-white rounded-md shadow-md hover:bg-gray-800 transition duration-300 mb-80"
           >
             SUBMIT
           </button>

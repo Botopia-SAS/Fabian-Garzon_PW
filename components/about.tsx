@@ -1,7 +1,7 @@
 const About = () => {
   return (
-    <section className="py-16 px-10 sm:px-8 md:px-12 lg:px-24">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+    <section className="py-16 px-10 sm:px-8 md:px-12 lg:px-24 dark:bg-white dark:text-black">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center dark:bg-white">
         {/* Columna de texto */}
         <div>
           <h2 className="font-bold text-black mt-10 mb-4">
@@ -20,7 +20,7 @@ const About = () => {
           <h2 className="font-bold text-black mb-4 mt-8">
             Fabián Garzón - SMMA.
           </h2>
-          <p className="text-black leading-relaxed mb-4 text-justify">
+          <p className="text-black leading-relaxed mb-80 text-justify">
             With over 20 years of experience in photography, directing, and
             marketing strategy, Fabián Garzón leads an international agency that
             transforms brands through creative content and digital campaigns.
