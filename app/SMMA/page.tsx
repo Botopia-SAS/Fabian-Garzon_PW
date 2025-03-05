@@ -1,6 +1,6 @@
 const Prints = () => {
   return (
-    <section className="pt-20 flex justify-center px-10 md:px-0 dark:bg-white dark:text-black ">
+    <section className="pt-40 flex justify-center px-10 md:px-0 dark:bg-white dark:text-black ">
       <div className="max-w-2xl text-left space-y-6">
         <h1 className="text-2xl font-bold">
           Fabián Garzón - Agencia de marketing digital y comunicaciones.

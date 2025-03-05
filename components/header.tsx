@@ -3,6 +3,14 @@
 import React, { useState } from "react";
 import { FaVimeoV, FaYoutube, FaTiktok } from "react-icons/fa";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
+import { Inconsolata } from "next/font/google";
+import Link from "next/link";
+
+const inconsolata = Inconsolata({
+  subsets: ["latin"],
+  weight: ["200"], // Solo extra light (200)
+  variable: "--font-inconsolata", // Variable CSS para usar en Tailwind
+});
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -11,29 +19,52 @@ const Header = () => {
     <header className="fixed top-0 left-0 w-full bg-white text-black dark:bg-white dark:text-black backdrop-blur-md z-50 shadow">
       <nav className="container mx-auto flex justify-between items-center py-4 px-6">
         {/* Nombre del portafolio */}
-        <div className="text-2xl font-bold">
-          <a href="/">FABIAN GARZON</a>
-        </div>
+        <Link
+          href="/"
+          className="text-4xl sm:text-base md:text-6xl lg:text-7xl xl:text-6xl tracking-wide"
+        >
+          <div
+            style={{ fontFamily: "var(--font-inconsolata)", fontWeight: 200 }}
+          >
+            FABIÁN GARZÓN
+          </div>
+        </Link>
 
         {/* Menú en el centro (visible solo en desktop) */}
         <ul className="hidden md:flex space-x-6 text-base font-medium">
           <li>
-            <a href="/Prints" className="hover:underline">
+            <a
+              href="/Prints"
+              style={{ fontFamily: "var(--font-inconsolata)", fontWeight: 200 }}
+              className="hover:underline text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl tracking-wide"
+            >
               PRINTS FOR SALE
             </a>
           </li>
           <li>
-            <a href="/About" className="hover:underline">
+            <a
+              style={{ fontFamily: "var(--font-inconsolata)", fontWeight: 200 }}
+              href="/About"
+              className="hover:underline text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl tracking-wide"
+            >
               ABOUT ME
             </a>
           </li>
           <li>
-            <a href="/SMMA" className="hover:underline">
+            <a
+              href="/SMMA"
+              style={{ fontFamily: "var(--font-inconsolata)", fontWeight: 200 }}
+              className="hover:underline text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl tracking-wide"
+            >
               SMMA
             </a>
           </li>
           <li>
-            <a href="/Contact" className="hover:underline">
+            <a
+              href="/Contact"
+              style={{ fontFamily: "var(--font-inconsolata)", fontWeight: 200 }}
+              className="hover:underline text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl tracking-wide"
+            >
               CONTACT
             </a>
           </li>
@@ -68,7 +99,10 @@ const Header = () => {
         </div>
 
         {/* Menú hamburguesa en móviles */}
-        <div className="md:hidden flex items-center ml-6">
+        <div
+          style={{ fontFamily: "var(--font-inconsolata)", fontWeight: 200 }}
+          className="md:hidden flex items-center ml-6"
+        >
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="text-2xl focus:outline-none"
@@ -83,22 +117,50 @@ const Header = () => {
         <div className="md:hidden bg-white shadow-lg absolute top-16 left-0 w-full z-50">
           <ul className="flex flex-col space-y-2 p-4 text-sm font-medium">
             <li>
-              <a href="/Prints" className="hover:underline">
+              <a
+                href="/Prints"
+                style={{
+                  fontFamily: "var(--font-inconsolata)",
+                  fontWeight: 200,
+                }}
+                className="hover:underline text-xl"
+              >
                 PRINTS FOR SALE
               </a>
             </li>
             <li>
-              <a href="/About" className="hover:underline">
+              <a
+                href="/About"
+                style={{
+                  fontFamily: "var(--font-inconsolata)",
+                  fontWeight: 200,
+                }}
+                className="hover:underline text-xl"
+              >
                 ABOUT ME
               </a>
             </li>
             <li>
-              <a href="/SMMA" className="hover:underline">
+              <a
+                href="/SMMA"
+                style={{
+                  fontFamily: "var(--font-inconsolata)",
+                  fontWeight: 200,
+                }}
+                className="hover:underline text-xl"
+              >
                 SMMA
               </a>
             </li>
             <li>
-              <a href="/Contact" className="hover:underline">
+              <a
+                href="/Contact"
+                style={{
+                  fontFamily: "var(--font-inconsolata)",
+                  fontWeight: 200,
+                }}
+                className="hover:underline text-xl"
+              >
                 CONTACT
               </a>
             </li>
