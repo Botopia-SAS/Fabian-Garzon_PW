@@ -50,7 +50,7 @@ export default function Home() {
             <ContinuousCarousel
               images={imageUrls}
               visibleCount={3}
-              speed={100}
+              speed={150}
             />
           </div>
         </div>

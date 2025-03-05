@@ -44,7 +44,7 @@ const photos = [
   { url: "/37/gus.1.jpg", alt: "FOTO 38", link: "/37" },
   { url: "/38/022.jpg", alt: "FOTO 39", link: "/38" },
   { url: "/39/a.jpg", alt: "FOTO 40", link: "/39" },
-  { url: "/40/a.jpg", alt: "FOTO 41", link: "/40" },
+  { url: "/40/veld.1.jpg", alt: "FOTO 41", link: "/40" },
 ];
 
 const Hero = () => {

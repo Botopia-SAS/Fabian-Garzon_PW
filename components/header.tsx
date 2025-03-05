@@ -17,11 +17,11 @@ const Header = () => {
 
   return (
     <header className="fixed top-0 left-0 w-full bg-white text-black dark:bg-white dark:text-black backdrop-blur-md z-50 shadow">
-      <nav className="container mx-auto flex justify-between items-center py-4 px-6">
+      <nav className="container mx-auto flex justify-between items-center py-2 bg-white">
         {/* Nombre del portafolio */}
         <Link
           href="/"
-          className="text-4xl sm:text-base md:text-6xl lg:text-7xl xl:text-6xl tracking-wide"
+          className="text-4xl sm:text-base md:text-6xl lg:text-6xl xl:text-6xl tracking-wide"
         >
           <div
             style={{ fontFamily: "var(--font-inconsolata)", fontWeight: 200 }}
