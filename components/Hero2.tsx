@@ -49,7 +49,7 @@ const photos = [
 
 const Hero = () => {
   return (
-    <section className="columns-2 sm:columns-3 pt-16 gap-0">
+    <section className="columns-2 sm:columns-3 gap-0">
       {photos.map((photo, index) => (
         <Link href={photo.link} key={index}>
           {" "}

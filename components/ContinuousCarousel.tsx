@@ -1,14 +1,7 @@
-"use client"; // Si usas Next.js 13 con app router, para habilitar uso de hooks en este componente
+"use client";
 
 import React, { useRef, useEffect, useState } from "react";
 
-/**
- * Componente de carrusel infinito con imágenes, escalado progresivo y bordes difuminados.
- * @param {Object} props
- * @param {string[]} props.images - Array de URLs de imágenes.
- * @param {number} [props.visibleCount=3] - Número de imágenes visibles en pantalla.
- * @param {number} [props.speed=5] - Tiempo en segundos que tarda en mover todo el set de imágenes de derecha a izquierda.
- */
 interface ContinuousCarouselProps {
   images: string[];
   visibleCount?: number;
@@ -23,90 +16,117 @@ export default function ContinuousCarousel({
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(0);
 
-  // Cantidad de imágenes (se duplican para lograr el efecto infinito)
-  const totalImages = images.length * 2;
+  // Altura fija para TODAS las imágenes
+  const TARGET_HEIGHT = 500;
+  // Margen horizontal entre imágenes
+  const IMAGE_MARGIN = 10;
 
-  // Estado que guarda la posición actual de desplazamiento (en píxeles)
-  // Calcula el ancho de cada "slot" (imagen + margen)
-  // Puedes ajustar el width base de las imágenes a tu preferencia.
-  const IMAGE_WIDTH = 400; // ancho base de la imagen
-  const IMAGE_MARGIN = 25; // margen entre imágenes (20px)
-  const slotWidth = IMAGE_WIDTH + IMAGE_MARGIN;
+  // Duplicamos el array de imágenes para el loop infinito.
+  // Así, la longitud total es 2 * images.length
+  const duplicatedImages = images.concat(images);
 
-  // Calcula el ancho total que ocupará el set completo de imágenes duplicadas
-  const totalWidth = slotWidth * totalImages;
+  // Estado para guardar el ancho escalado de cada imagen (en px).
+  // Ej.: si la imagen mide 3000×2000, su relación es 1.5. Al escalar a 600px de alto, su ancho es 900.
+  const [imageWidths, setImageWidths] = useState<number[]>(() =>
+    Array(duplicatedImages.length).fill(0)
+  );
 
-  const [scrollX, setScrollX] = useState(-totalWidth / 4);
+  // Posiciones acumuladas (left) de cada imagen en el track.
+  const [positions, setPositions] = useState<number[]>(() =>
+    Array(duplicatedImages.length).fill(0)
+  );
 
-  // Velocidad en px/segundo para recorrer totalWidth en 'speed' segundos.
-  const pxPerSecond = totalWidth / speed;
+  // Ancho total del track con todas las imágenes + margen
+  const [totalWidth, setTotalWidth] = useState(0);
 
-  // Ajusta el tamaño del contenedor cada vez que cambie de tamaño la ventana
+  // scrollX es nuestro desplazamiento (0 → totalWidth/2)
+  const [scrollX, setScrollX] = useState(0);
+
+  // Medir el ancho del contenedor para el “efecto scale”:
   useEffect(() => {
     const handleResize = () => {
       if (containerRef.current) {
         setContainerWidth(containerRef.current.offsetWidth);
       }
     };
-    handleResize(); // set inicial
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Animación con requestAnimationFrame
+  // Cada vez que una imagen carga, calculamos su “width escalado” y volvemos a calcular “positions” y “totalWidth”
+  function handleImageLoad(
+    e: React.SyntheticEvent<HTMLImageElement>,
+    i: number
+  ) {
+    const img = e.currentTarget;
+    const naturalW = img.naturalWidth;
+    const naturalH = img.naturalHeight;
+    const ratio = naturalW / naturalH; // relación de aspecto
+    const scaledWidth = ratio * TARGET_HEIGHT; // ancho al escalar a 600px de alto
+
+    setImageWidths((prev) => {
+      const newArr = [...prev];
+      newArr[i] = scaledWidth;
+      return newArr;
+    });
+  }
+
+  // Cuando cambie imageWidths, recalculamos “positions” y “totalWidth”
   useEffect(() => {
-    let lastTimestamp = performance.now();
+    // Calcula posiciones acumuladas
+    const newPositions = [];
+    let currentX = 0;
+    for (let i = 0; i < duplicatedImages.length; i++) {
+      newPositions.push(currentX);
+      // Avanzamos currentX según el ancho de la imagen + margen
+      currentX += imageWidths[i] + IMAGE_MARGIN;
+    }
+    setPositions(newPositions);
+    setTotalWidth(currentX);
+  }, [imageWidths, duplicatedImages.length]);
+
+  // Iniciar animación infinita
+  useEffect(() => {
+    let lastTime = performance.now();
 
     const animate = (now: number) => {
-      const delta = (now - lastTimestamp) / 1000; // en segundos
-      lastTimestamp = now;
+      const dt = (now - lastTime) / 1000; // en segundos
+      lastTime = now;
 
-      // Movemos scrollX de derecha a izquierda
+      // Avanzamos scrollX de derecha a izquierda (o al revés, según tu preferencia)
+      // Ej.: si queremos que en 'speed' segundos recorra todo `totalWidth`,
+      // la velocidad en px/segundo es totalWidth / speed
+      const pxPerSecond = totalWidth / speed;
+
       setScrollX((prev) => {
-        let newVal = prev + pxPerSecond * delta;
-        // Si llega al final, lo reiniciamos para que sea "infinito"
+        let newVal = prev + pxPerSecond * dt;
+        // Si se pasa de la mitad (loop), reiniciamos
         if (newVal >= totalWidth / 2) {
           newVal -= totalWidth / 2;
-          lastTimestamp = now; // Reseteamos el tiempo para evitar desincronización
+          lastTime = now; // Evitar “salto” de frames
         }
         return newVal;
       });
 
       requestAnimationFrame(animate);
     };
-
     const animationId = requestAnimationFrame(animate);
+
     return () => cancelAnimationFrame(animationId);
-  }, [pxPerSecond, totalWidth]);
+  }, [totalWidth, speed]);
 
-  /**
-   * Calcula la escala de la imagen según su posición horizontal relativa
-   * al centro del contenedor. Centro = escala 1, extremos = escala ~0.5
-   */
-  interface GetScaleParams {
-    xCenterImage: number;
-  }
-
-  const getScale = ({ xCenterImage }: GetScaleParams): number => {
-    if (!containerWidth) return 0.8;
-
-    // Centro del contenedor
+  // Función para calcular la escala según distancia al centro:
+  function getScale(xCenterImage: number): number {
+    if (!containerWidth) return 1;
     const containerCenter = containerWidth / 2;
-    // Distancia del centro
     const distance = Math.abs(xCenterImage - containerCenter);
-
-    // Queremos que en el centro la escala sea 1, y en los bordes baje a 0.5
-    // Definamos un rango: 0 <= distance <= (containerCenter)
-    // Y una escala lineal 1 -> 0.5
-    const maxDistance = containerCenter; // a esta distancia, scale = 0.5
-    let scale = 1 - 0.5 * (distance / maxDistance);
-
-    // Forzamos límites entre 0.5 y 1
+    // A distancia=0 → scale=1, a distancia=containerCenter → scale=0.5
+    let scale = 1 - 0.5 * (distance / containerCenter);
     if (scale < 0.5) scale = 0.5;
     if (scale > 1) scale = 1;
-
     return scale;
-  };
+  }
 
   return (
     <div
@@ -115,12 +135,10 @@ export default function ContinuousCarousel({
         position: "relative",
         overflow: "hidden",
         width: "100%",
-        // Altura mínima para que se vean las imágenes
-        height: "800px",
+        height: "800px", // puedes ajustar
       }}
     >
-      {/* Gradiente difuminado en los bordes (left y right) */}
-      {/* Podemos usar pseudo-elementos, pero en React haremos 2 divs superpuestos */}
+      {/* Gradientes laterales */}
       <div
         style={{
           pointerEvents: "none",
@@ -147,48 +165,55 @@ export default function ContinuousCarousel({
           zIndex: 2,
         }}
       />
-      {/* Contenedor que desplaza las imágenes (track) */}
+
+      {/* Track horizontal con ancho = totalWidth */}
       <div
         style={{
-          display: "flex",
           position: "absolute",
           top: 0,
           left: 0,
-          // Transladamos este track según scrollX para lograr el movimiento
-          transform: `translateX(${-scrollX}px)`,
-          whiteSpace: "nowrap",
-          alignItems: "center",
           height: "100%",
+          width: totalWidth, // variable
+          transform: `translateX(${-scrollX}px)`,
         }}
       >
-        {/* Duplicamos el array de imágenes para el efecto infinito */}
-        {images.concat(images).map((src, index) => {
-          // El punto central de cada imagen respecto a todo el track
-          // offset en el carrusel + mitad de su propio ancho
-          const xCenterImage = (index + 0.5) * slotWidth - scrollX; // posición real en px
+        {duplicatedImages.map((src, i) => {
+          const imgWidth = imageWidths[i];
+          const leftPos = positions[i];
 
-          // Calculamos la escala según la distancia al centro del contenedor
-          const scale = getScale({ xCenterImage });
+          // El “centro” de esta imagen es leftPos + (imgWidth / 2)
+          const xCenterImage = leftPos + imgWidth / 2 - scrollX;
+          const scale = getScale(xCenterImage);
 
           return (
             <div
-              key={index}
+              key={i}
               style={{
-                width: IMAGE_WIDTH,
-                height: "auto",
-                marginRight: IMAGE_MARGIN,
+                position: "absolute",
+                left: leftPos,
+                top: "50px", // 🔹 Ajusta este valor para bajar las imágenes
+                // Alto fijo (600) para todas
+                height: TARGET_HEIGHT,
+                width: imgWidth,
                 transform: `scale(${scale})`,
-                transition: "transform 0.1s linear", // para un refresco suave
+                transformOrigin: "center center",
+                transition: "transform 0.1s linear",
+                overflow: "hidden",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
               <img
                 src={src}
-                alt={`carousel-${index}`}
+                alt={`img-${i}`}
+                onLoad={(e) => handleImageLoad(e, i)}
                 style={{
-                  width: "100%",
+                  // Mantenemos altura en 100%, ancho auto => no recortamos
                   height: "100%",
-                  objectFit: "cover",
-                  borderRadius: "8px",
+                  width: "auto",
+                  objectFit: "contain",
+                  borderRadius: 8,
                   display: "block",
                 }}
               />

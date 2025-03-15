@@ -50,7 +50,7 @@ const Header = () => {
               ABOUT ME
             </a>
           </li>
-          <li>
+          {/* <li>
             <a
               href="/SMMA"
               style={{ fontFamily: "var(--font-inconsolata)", fontWeight: 200 }}
@@ -58,7 +58,7 @@ const Header = () => {
             >
               SMMA
             </a>
-          </li>
+          </li> */}
           <li>
             <a
               href="/Contact"
