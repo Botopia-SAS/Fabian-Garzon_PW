@@ -133,7 +133,7 @@ const Header = () => {
                 ABOUT ME
               </a>
             </li>
-            <li>
+            {/*<li>
               <a
                 href="/SMMA"
                 style={{
@@ -144,7 +144,7 @@ const Header = () => {
               >
                 SMMA
               </a>
-            </li>
+            </li>*/}
             <li>
               <a
                 href="/Contact"
