@@ -30,7 +30,7 @@ export default function Home() {
       >
         <div>
           <h1>Mi página con Carrusel</h1>
-          <div className="mb-0">
+          <div className="relative top-20">
             <ContinuousCarousel
               images={imageUrls}
               visibleCount={3}

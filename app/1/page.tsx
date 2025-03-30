@@ -1,5 +1,4 @@
 "use client";
-import { useState, useEffect } from "react";
 import Hero from "@/components/Hero2";
 import ContinuousCarousel from "@/components/ContinuousCarousel";
 
@@ -16,7 +15,7 @@ export default function Home() {
   const imageUrls = imageObjects.map((img) => img.url);
 
   return (
-    <div className="bg-white">
+    <div className="bg-white mt-20px">
       <main
         style={{
           backgroundColor: "white",
@@ -24,11 +23,12 @@ export default function Home() {
           maxWidth: "100%", // 100% en móviles y tablets
           margin: "0 auto",
           minHeight: "100vh",
+          paddingTop: "20px", // 🔹 Esto baja todo el contenido dentro de <main>
         }}
       >
         <div>
           <h1>Mi página con Carrusel</h1>
-          <div className="mb-0">
+          <div className="relative top-20">
             <ContinuousCarousel
               images={imageUrls}
               visibleCount={3}

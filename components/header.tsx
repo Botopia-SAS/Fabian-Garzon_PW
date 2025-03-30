@@ -3,14 +3,7 @@
 import React, { useState } from "react";
 import { FaVimeoV, FaYoutube, FaTiktok } from "react-icons/fa";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
-import { Inconsolata } from "next/font/google";
 import Link from "next/link";
-
-const inconsolata = Inconsolata({
-  subsets: ["latin"],
-  weight: ["200"], // Solo extra light (200)
-  variable: "--font-inconsolata", // Variable CSS para usar en Tailwind
-});
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -21,7 +14,7 @@ const Header = () => {
         {/* Nombre del portafolio */}
         <Link
           href="/"
-          className="text-4xl sm:text-base md:text-6xl lg:text-6xl xl:text-6xl tracking-wide"
+          className="mt-2 text-4xl sm:text-base md:text-6xl lg:text-6xl xl:text-6xl tracking-wide"
         >
           <div
             style={{ fontFamily: "var(--font-inconsolata)", fontWeight: 200 }}
@@ -71,7 +64,7 @@ const Header = () => {
         </ul>
 
         {/* Íconos sociales a la derecha */}
-        <div className="flex space-x-4 text-xl">
+        <div className="flex space-x-4 text-xl ml-2 ">
           <a
             href="https://vimeo.com/fabiangarzon"
             target="_blank"

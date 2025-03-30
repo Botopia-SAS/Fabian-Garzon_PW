@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useCallback } from "react";
 
 interface ContinuousCarouselProps {
   images: string[];
@@ -15,212 +15,266 @@ export default function ContinuousCarousel({
 }: ContinuousCarouselProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(0);
-
-  // Altura fija para TODAS las imágenes
-  const TARGET_HEIGHT = 500;
-  // Margen horizontal entre imágenes
-  const IMAGE_MARGIN = 10;
-
-  // Duplicamos el array de imágenes para el loop infinito.
-  // Así, la longitud total es 2 * images.length
-  const duplicatedImages = images.concat(images);
-
-  // Estado para guardar el ancho escalado de cada imagen (en px).
-  // Ej.: si la imagen mide 3000×2000, su relación es 1.5. Al escalar a 600px de alto, su ancho es 900.
-  const [imageWidths, setImageWidths] = useState<number[]>(() =>
-    Array(duplicatedImages.length).fill(0)
-  );
-
-  // Posiciones acumuladas (left) de cada imagen en el track.
-  const [positions, setPositions] = useState<number[]>(() =>
-    Array(duplicatedImages.length).fill(0)
-  );
-
-  // Ancho total del track con todas las imágenes + margen
-  const [totalWidth, setTotalWidth] = useState(0);
-
-  // scrollX es nuestro desplazamiento (0 → totalWidth/2)
   const [scrollX, setScrollX] = useState(0);
+  const [totalWidth, setTotalWidth] = useState(0);
+  const [imageDimensions, setImageDimensions] = useState<
+    { width: number; height: number }[]
+  >([]);
+  const [positions, setPositions] = useState<number[]>([]);
+  const [isClient, setIsClient] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Medir el ancho del contenedor para el “efecto scale”:
+  // Constantes configurables
+  const IMAGE_MARGIN = 20;
+  const duplicatedImages = [...images, ...images];
+  const desktopHeight = 500;
+  const mobileMaxHeight = 350;
+
+  // Efecto para inicialización
   useEffect(() => {
-    const handleResize = () => {
-      if (containerRef.current) {
-        setContainerWidth(containerRef.current.offsetWidth);
-      }
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    setIsClient(true);
+    calculateDimensions();
+    window.addEventListener("resize", calculateDimensions);
+    return () => window.removeEventListener("resize", calculateDimensions);
   }, []);
 
-  // Cada vez que una imagen carga, calculamos su “width escalado” y volvemos a calcular “positions” y “totalWidth”
-  function handleImageLoad(
-    e: React.SyntheticEvent<HTMLImageElement>,
-    i: number
-  ) {
-    const img = e.currentTarget;
-    const naturalW = img.naturalWidth;
-    const naturalH = img.naturalHeight;
-    const ratio = naturalW / naturalH; // relación de aspecto
-    const scaledWidth = ratio * TARGET_HEIGHT; // ancho al escalar a 600px de alto
-
-    setImageWidths((prev) => {
-      const newArr = [...prev];
-      newArr[i] = scaledWidth;
-      return newArr;
-    });
-  }
-
-  // Cuando cambie imageWidths, recalculamos “positions” y “totalWidth”
-  useEffect(() => {
-    // Calcula posiciones acumuladas
-    const newPositions = [];
-    let currentX = 0;
-    for (let i = 0; i < duplicatedImages.length; i++) {
-      newPositions.push(currentX);
-      // Avanzamos currentX según el ancho de la imagen + margen
-      currentX += imageWidths[i] + IMAGE_MARGIN;
+  const calculateDimensions = useCallback(() => {
+    if (containerRef.current && typeof window !== "undefined") {
+      const width = containerRef.current.offsetWidth;
+      setContainerWidth(width);
+      const mobileCheck = width < 768;
+      setIsMobile(mobileCheck);
     }
+  }, []);
+
+  // Manejar carga de imágenes
+  const handleImageLoad = useCallback(
+    (e: React.SyntheticEvent<HTMLImageElement>, i: number) => {
+      const img = e.currentTarget;
+      const naturalRatio = img.naturalWidth / img.naturalHeight;
+
+      let scaledWidth, scaledHeight;
+
+      if (isMobile) {
+        // Para móvil: mantener relación de aspecto, altura dinámica
+        scaledHeight = Math.min(mobileMaxHeight, img.naturalHeight);
+        scaledWidth = scaledHeight * naturalRatio;
+      } else {
+        // Para desktop: altura fija, ancho proporcional
+        scaledHeight = desktopHeight;
+        scaledWidth = desktopHeight * naturalRatio;
+      }
+
+      setImageDimensions((prev) => {
+        const newArr = [...prev];
+        newArr[i] = { width: scaledWidth, height: scaledHeight };
+        return newArr;
+      });
+    },
+    [isMobile]
+  );
+
+  // Calcular posiciones
+  useEffect(() => {
+    if (imageDimensions.length === 0 || imageDimensions.some((d) => !d?.width))
+      return;
+
+    const newPositions: number[] = [];
+    let currentX = 0;
+
+    duplicatedImages.forEach((_, i) => {
+      newPositions.push(currentX);
+      currentX += (imageDimensions[i]?.width || 0) + IMAGE_MARGIN;
+    });
+
     setPositions(newPositions);
     setTotalWidth(currentX);
-  }, [imageWidths, duplicatedImages.length]);
+  }, [imageDimensions, duplicatedImages.length]);
 
-  // Iniciar animación infinita
+  // Animación del carrusel
   useEffect(() => {
+    if (totalWidth <= 0 || containerWidth <= 0 || !isClient) return;
+
+    let animationFrameId: number;
     let lastTime = performance.now();
 
     const animate = (now: number) => {
-      const dt = (now - lastTime) / 1000; // en segundos
+      const deltaTime = (now - lastTime) / 1000;
       lastTime = now;
 
-      // Avanzamos scrollX de derecha a izquierda (o al revés, según tu preferencia)
-      // Ej.: si queremos que en 'speed' segundos recorra todo `totalWidth`,
-      // la velocidad en px/segundo es totalWidth / speed
-      const pxPerSecond = totalWidth / speed;
-
       setScrollX((prev) => {
-        let newVal = prev + pxPerSecond * dt;
-        // Si se pasa de la mitad (loop), reiniciamos
-        if (newVal >= totalWidth / 2) {
-          newVal -= totalWidth / 2;
-          lastTime = now; // Evitar “salto” de frames
+        let newValue = prev + speed * deltaTime;
+        if (newValue >= totalWidth / 2) {
+          newValue = newValue % (totalWidth / 2);
         }
-        return newVal;
+        return newValue;
       });
 
-      requestAnimationFrame(animate);
+      animationFrameId = requestAnimationFrame(animate);
     };
-    const animationId = requestAnimationFrame(animate);
 
-    return () => cancelAnimationFrame(animationId);
-  }, [totalWidth, speed]);
+    animationFrameId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [totalWidth, containerWidth, speed, isClient]);
 
-  // Función para calcular la escala según distancia al centro:
-  function getScale(xCenterImage: number): number {
-    if (!containerWidth) return 1;
-    const containerCenter = containerWidth / 2;
-    const distance = Math.abs(xCenterImage - containerCenter);
-    // A distancia=0 → scale=1, a distancia=containerCenter → scale=0.5
-    let scale = 1 - 0.5 * (distance / containerCenter);
-    if (scale < 0.5) scale = 0.5;
-    if (scale > 1) scale = 1;
-    return scale;
+  // Calcular escala (más pronunciada en desktop)
+  const getScale = useCallback(
+    (xCenterImage: number): number => {
+      if (!containerWidth) return 1;
+
+      const containerCenter = containerWidth / 2;
+      const distance = Math.abs(xCenterImage - containerCenter);
+      const maxDistance = containerWidth * (isMobile ? 0.8 : 0.6);
+
+      let scale =
+        1 - (isMobile ? 0.3 : 0.5) * Math.min(distance / maxDistance, 1);
+      return Math.max(scale, isMobile ? 0.8 : 0.7);
+    },
+    [containerWidth, isMobile]
+  );
+
+  // Componente de bordes degradados
+  const GradientOverlays = () => (
+    <>
+      <div className="gradient-overlay left" />
+      <div className="gradient-overlay right" />
+    </>
+  );
+
+  // Calcular altura del contenedor
+  const containerHeight = isMobile
+    ? Math.max(...imageDimensions.map((d) => d?.height || 0), mobileMaxHeight) +
+      20
+    : desktopHeight + 40;
+
+  if (!isClient) {
+    return (
+      <div
+        ref={containerRef}
+        className="carousel-container"
+        style={{ height: `${desktopHeight + 40}px` }}
+      />
+    );
   }
 
   return (
     <div
       ref={containerRef}
+      className="carousel-container"
       style={{
-        position: "relative",
-        overflow: "hidden",
-        width: "100%",
-        height: "800px", // puedes ajustar
+        height: `${containerHeight}px`,
+        margin: "20px 0",
       }}
     >
-      {/* Gradientes laterales */}
-      <div
-        style={{
-          pointerEvents: "none",
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "15%",
-          height: "100%",
-          background:
-            "linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0))",
-          zIndex: 2,
-        }}
-      />
-      <div
-        style={{
-          pointerEvents: "none",
-          position: "absolute",
-          top: 0,
-          right: 0,
-          width: "15%",
-          height: "100%",
-          background:
-            "linear-gradient(to left, rgba(255,255,255,1), rgba(255,255,255,0))",
-          zIndex: 2,
-        }}
-      />
+      <GradientOverlays />
 
-      {/* Track horizontal con ancho = totalWidth */}
       <div
+        className="carousel-track"
         style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          height: "100%",
-          width: totalWidth, // variable
+          width: `${totalWidth}px`,
           transform: `translateX(${-scrollX}px)`,
+          height: `${isMobile ? containerHeight - 20 : desktopHeight}px`,
+          top: isMobile ? "10px" : "0",
         }}
       >
         {duplicatedImages.map((src, i) => {
-          const imgWidth = imageWidths[i];
-          const leftPos = positions[i];
-
-          // El “centro” de esta imagen es leftPos + (imgWidth / 2)
+          const imgWidth = imageDimensions[i]?.width || 0;
+          const imgHeight = imageDimensions[i]?.height || 0;
+          const leftPos = positions[i] || 0;
           const xCenterImage = leftPos + imgWidth / 2 - scrollX;
           const scale = getScale(xCenterImage);
 
           return (
             <div
-              key={i}
+              key={`${i}-${src}`}
+              className="carousel-item"
               style={{
-                position: "absolute",
-                left: leftPos,
-                top: "50px", // 🔹 Ajusta este valor para bajar las imágenes
-                // Alto fijo (600) para todas
-                height: TARGET_HEIGHT,
-                width: imgWidth,
+                left: `${leftPos}px`,
+                width: `${imgWidth}px`,
+                height: `${imgHeight}px`,
                 transform: `scale(${scale})`,
-                transformOrigin: "center center",
-                transition: "transform 0.1s linear",
-                overflow: "hidden",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                top: isMobile ? `calc(50% - ${imgHeight / 2}px)` : "20px",
               }}
             >
               <img
                 src={src}
-                alt={`img-${i}`}
+                alt={`Carousel item ${i % images.length}`}
                 onLoad={(e) => handleImageLoad(e, i)}
+                className="carousel-image"
                 style={{
-                  // Mantenemos altura en 100%, ancho auto => no recortamos
+                  width: "100%",
                   height: "100%",
-                  width: "auto",
-                  objectFit: "contain",
-                  borderRadius: 8,
-                  display: "block",
+                  objectFit: isMobile ? "contain" : "cover",
                 }}
               />
             </div>
           );
         })}
       </div>
+
+      <style jsx>{`
+        .carousel-container {
+          position: relative;
+          width: 100%;
+          overflow: hidden;
+          margin: 0 auto;
+          padding: 0 10px;
+        }
+
+        .carousel-track {
+          position: absolute;
+          left: 0;
+          will-change: transform;
+        }
+
+        .carousel-item {
+          position: absolute;
+          transform-origin: center center;
+          transition: transform 0.2s ease-out;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 8px;
+          ${!isMobile ? "box-shadow: 0 4px 8px rgba(0,0,0,0.1);" : ""}
+        }
+
+        .gradient-overlay {
+          pointer-events: none;
+          position: absolute;
+          top: 0;
+          height: 100%;
+          width: 15%;
+          z-index: 2;
+        }
+
+        .gradient-overlay.left {
+          left: 0;
+          background: linear-gradient(
+            to right,
+            rgba(255, 255, 255, 1),
+            rgba(255, 255, 255, 0)
+          );
+        }
+
+        .gradient-overlay.right {
+          right: 0;
+          background: linear-gradient(
+            to left,
+            rgba(255, 255, 255, 1),
+            rgba(255, 255, 255, 0)
+          );
+        }
+
+        @media (max-width: 768px) {
+          .carousel-container {
+            padding: 0 5px;
+          }
+
+          .gradient-overlay {
+            width: 8%;
+          }
+        }
+      `}</style>
     </div>
   );
 }
