@@ -8,11 +8,6 @@ export default function Home() {
     { url: "/3/book1.10.jpg", alt: "Foto 1" },
     { url: "/3/book1.11.jpg", alt: "Foto 2" },
     { url: "/3/book1.12.jpg", alt: "Foto 2" },
-    { url: "/3/book2.24.png", alt: "Foto 2" },
-    { url: "/3/book2.25.png", alt: "Foto 2" },
-    { url: "/3/book2.26.png", alt: "Foto 2" },
-    { url: "/3/book2.27.png", alt: "Foto 2" },
-    { url: "/3/book2.28.png", alt: "Foto 2" },
   ];
 
   // Extrae solo las URLs para pasarlas al componente
@@ -39,8 +34,10 @@ export default function Home() {
             />
           </div>
         </div>
+        <div className="mt-40">
+          <Hero />
+        </div>
       </main>
-      <Hero />
     </div>
   );
 }

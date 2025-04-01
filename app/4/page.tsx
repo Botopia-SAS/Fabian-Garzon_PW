@@ -34,8 +34,10 @@ export default function Home() {
             />
           </div>
         </div>
+        <div className="mt-40">
+          <Hero />
+        </div>
       </main>
-      <Hero />
     </div>
   );
 }
